@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: API Gestion Utilisateurs
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /users:
+    get:
+      description: Retourne une liste d'utilisateurs sous forme JSON
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Numéro de la page
+          schema:
+            type: integer
+            example: 1
+        - name: size
+          in: query
+          required: false
+          description: Nombre d'utilisateurs par page
+          schema:
+            type: integer
+            example: 20
+      responses:
+        '200':
+          description: Liste des utilisateurs retrouvés
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Alice
+                    email:
+                      type: string
+                      format: email
+                      example: alice@example.com
+              example:
+                - id: 1
+                  name: Alice
+                  email: alice@example.com
+                - id: 2
+                  name: Bob
+                  email: bob@example.com
+        '400':
+          description: Mauvais types de paramètres fournis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Bad types for provided query parameters"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Alice
+        email:
+          type: string
+          format: email
+          example: alice@example.com
