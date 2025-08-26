@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: API Gestion de Tâches
+  version: 1.0.0
+
+paths:
+  /tasks:
+    get:
+      summary: Récupérer toutes les tâches
+      responses:
+        '200':
+          description: Liste des tâches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: "Faire les courses"
+                    completed:
+                      type: boolean
+                      example: false
+
+    post:
+      summary: Créer de nouvelles tâches
+      requestBody:
+        description: Liste des tâches à créer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: "Faire les courses"
+                  completed:
+                    type: boolean
+                    example: false
+      responses:
+        '201':
+          description: Tâches créées
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: "Faire les courses"
+                    completed:
+                      type: boolean
+                      example: false
+
+    delete:
+      summary: Supprimer plusieurs tâches
+      requestBody:
+        description: Liste des IDs des tâches à supprimer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        '200':
+          description: Tâches supprimées
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: "Faire les courses"
+                    completed:
+                      type: boolean
+                      example: false
+
+  /tasks/{id}:
+    get:
+      summary: Récupérer une tâche par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tâche
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tâche trouvée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: "Faire les courses"
+                  completed:
+                    type: boolean
+                    example: false
+        '404':
+          description: Tâche non trouvée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Task not found"
+
+    delete:
+      summary: Supprimer une tâche par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tâche
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tâche supprimée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: "Faire les courses"
+                  completed:
+                    type: boolean
+                    example: false
+        '404':
+          description: Tâche non trouvée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Task not found"
